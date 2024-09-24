@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>パスワード生成サービス</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+        }
+        #password {
+            margin-top: 20px;
+            font-size: 24px;
+            word-break: break-all;
+        }
+    </style>
+</head>
+<body>
+    <h1>強力なパスワード生成器</h1>
+    <button onclick="generatePassword()">パスワードを生成</button>
+    <div id="password"></div>
+
+    <script>
+        function generatePassword() {
+            const length = 16;
+            const upperCase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            const lowerCase = 'abcdefghijklmnopqrstuvwxyz';
+            const numbers = '0123456789';
+            const symbols = '!@#$%^&*()_+[]{}|;:,.<>?';
+            const allCharacters = upperCase + lowerCase + numbers + symbols;
+
+            let password = '';
+            
+            // 必ず一つ以上の各種類の文字を含むようにする
+            password += upperCase[Math.floor(Math.random() * upperCase.length)];
+            password += lowerCase[Math.floor(Math.random() * lowerCase.length)];
+            password += numbers[Math.floor(Math.random() * numbers.length)];
+            password += symbols[Math.floor(Math.random() * symbols.length)];
+
+            // 残りの文字をランダムに追加
+            for (let i = password.length; i < length; i++) {
+                password += allCharacters[Math.floor(Math.random() * allCharacters.length)];
+            }
+
+            // パスワードをシャッフル
+            password = password.split('').sort(() => Math.random() - 0.5).join('');
+
+            // 結果を画面に表示
+            document.getElementById('password').innerText = password;
+        }
+    </script>
+</body>
+</html>
+
